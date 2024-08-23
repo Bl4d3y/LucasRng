@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin for Auras</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: #282c34;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        #gameContainer {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+        }
+        #leftPanel, #rightPanel {
+            width: 20%;
+            padding: 10px;
+        }
+        #rightPanel {
+            border-left: 2px solid #ccc;
+        }
+        #mainPanel {
+            width: 60%;
+            text-align: center;
+        }
+        #spinButton, #autoSpinButton, #inventoryButton {
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            background-color: #61dafb;
+            border: none;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+        #spinButton:hover, #autoSpinButton:hover, #inventoryButton:hover {
+            background-color: #21a1f1;
+        }
+        #leaderboard {
+            padding: 10px;
+            background-color: #333;
+            border: 1px solid #61dafb;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .leaderboard-entry {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        #character {
+            margin: 20px auto;
+            position: relative;
+            width: 150px;
+            height: 300px;
+        }
+        #character .block {
+            position: absolute;
+            border: 2px solid #61dafb;
+            background-color: #888;
+        }
+        #character .head {
+            width: 100px;
+            height: 100px;
+            top: 0;
+            left: 25px;
+        }
+        #character .body {
+            width: 80px;
+            height: 120px;
+            top: 100px;
+            left: 35px;
+        }
+        #character .arm {
+            width: 40px;
+            height: 100px;
+            top: 100px;
+        }
+        #character .arm.left {
+            left: 0;
+        }
+        #character .arm.right {
+            right: 0;
+        }
+        #character .leg {
+            width: 40px;
+            height: 100px;
+            top: 220px;
+        }
+        #character .leg.left {
+            left: 35px;
+        }
+        #character .leg.right {
+            right: 35px;
+        }
+        #level, #streak, #progressBar {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #spinWheel {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #61dafb;
+            border-radius: 50%;
+            position: relative;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+        .segment {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform-origin: 0 100%;
+        }
+        #spinnyWheel {
+            width: 10px;
+            height: 40px;
+            background-color: red;
+            position: absolute;
+            top: -20px;
+            left: calc(50% - 5px);
+            z-index: 10;
+        }
+        #inventoryContainer {
+            display: none;
+            background-color: #222;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #61dafb;
+        }
+        .aura {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #fff;
+            display: inline-block;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .common { background-color: #d9d9d9; }
+        .uncommon { background-color: #c6e2ff; }
+        .rare { background-color: #ffd700; }
+        .legendary { background-color: #ff4500; color: #fff; }
+        .rarity { font-weight: bold; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer">
+    <div id="leftPanel">
+        <button id="spinButton">Spin</button>
+        <button id="autoSpinButton">Auto Spin</button>
+        <button id="inventoryButton">Toggle Inventory</button>
+    </div>
+
+    <div id="mainPanel">
+        <h1>Spin for Auras</h1>
+        <div id="character">
+            <div class="block head"></div>
+            <div class="block body"></div>
+            <div class="block arm left"></div>
+            <div class="block arm right"></div>
+            <div class="block leg left"></div>
+            <div class="block leg right"></div>
+        </div>
+        <div id="level">Level: 1</div>
+        <div id="progressBar">
+            <div id="xpBar" style="width: 0; height: 20px; background-color: green;"></div>
+        </div>
+        <div id="streak">Streak: 0</div>
+        <div id="spinWheel">
+            <div id="spinnyWheel"></div>
+        </div>
+        <div id="inventoryContainer"></div>
+    </div>
+
+    <div id="rightPanel">
+        <h2>Leaderboard</h2>
+        <div id="leaderboard"></div>
+    </div>
+</div>
+
+<script src="game.js"></script>
+
+</body>
+</html>
